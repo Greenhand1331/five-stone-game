@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+//安装依赖 
+### `yarn ` 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+//启动
+### `yarn start` 
 
-In the project directory, you can run:
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+功能：实现一个有界面的五子棋交互式游戏。
 
-### `yarn test`
+## AI策略接口
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. 判断当前局面赢家
 
-### `yarn build`
+   ````typescript
+   const is_win = (board: number[][]): number
+   
+   /**
+   board: 一个棋盘大小的二维数组，数组中元素代表当前位置是第几个落子（从1开始），若空为0
+   return: 1黑棋赢，-1白棋赢，0无人赢
+   示例
+   import is_win from "./strategy/win"
+   let board = [
+       [0, 0, 7, 8, 0],
+       [0, 9, 0, 10, 0],
+       [0, 0, 1, 2, 0],
+       [0, 0, 3, 4, 0],
+       [0, 0, 5, 6, 0]
+   ];
+   console.log(is_win(board));
+   >> -1
+   **/
+   
+   ````
+2. 获取ai策略的下一步棋
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```typescript
+   const next_move = (board: number[][]): [number, number] 
+   /**
+   board: 一个棋盘大小的二维数组，数组中元素代表当前位置是第几个落子（从1开始），若空为0
+   return: ai策略下一步的坐标，[x,y]，x代表行，y代表列（从0开始）
+   示例
+   import next_move from "./ai"
+   let board = [
+       [0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0],
+       [0, 0, 1, 0, 0],
+       [0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0]
+   ];
+   console.log(next_move(board));
+   >> [2,1]
+   代表ai选择走中心点左边的位置
+   **/
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 待完成
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* 前端显示界面
+    * 界面
+    
+    * 可以选择人机和机器自我对战
+    
+    * 最后一个落子特殊标记
+    
+    * 图片均在images中
+    
+      ![](images/screen.png)
+* strategy代码debug，优化
